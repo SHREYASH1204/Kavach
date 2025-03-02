@@ -35,6 +35,7 @@ Performance tracking dashboard to ensure accountability.
 Efficient allocation of law enforcement resources.
 
 Bonus Features
+
 7. AI-Powered Crime Prediction
 Uses machine learning models to analyze crime patterns.
 Predicts potential crime hotspots for proactive policing.
