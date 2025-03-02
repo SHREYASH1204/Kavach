@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Case Management Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="light-mode">
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Police Dashboard</h2>
+            </div>
+            <nav>
+                <ul id="main-nav">
+                    <!-- Navigation items will be dynamically inserted here -->
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    
+                    <div>
+                        <p id="navUserName" class="user-name">Loading...</p>
+                        <p id="navUserRank" class="user-role">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search cases...">
+                </div>
+                <div class="header-actions">
+                    <button id="toggle-theme"><i class="fas fa-moon"></i></button>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #ff6b6b;">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Active Cases</h3>
+                        <p>48</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #4ecdc4;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Solved Cases</h3>
+                        <p>156</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #ffd93d;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Pending</h3>
+                        <p>32</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #6c5ce7;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Officers</h3>
+                        <p>24</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="grid-item charts" id="case-statistics">
+                    <h3>Case Statistics</h3>
+                    <canvas id="casesChart"></canvas>
+                </div>
+                <div class="grid-item charts" id="monthly-progress">
+                    <h3>Monthly Progress</h3>
+                    <canvas id="progressChart"></canvas>
+                </div>
+                
+                <div class="grid-item ongoing-cases" id="recent-cases">
+                    <h3>Recent Cases</h3>
+                    <div class="case-list">
+                        <div class="case-item">
+                            <div class="case-priority high"></div>
+                            <div class="case-info">
+                                <h4>Case #2024-001</h4>
+                                <p>Armed Robbery Investigation</p>
+                            </div>
+                            <div class="case-status">
+                                <span class="status-badge in-progress">In Progress</span>
+                            </div>
+                        </div>
+                        <div class="case-item">
+                            <div class="case-priority medium"></div>
+                            <div class="case-info">
+                                <h4>Case #2024-002</h4>
+                                <p>Vehicle Theft</p>
+                            </div>
+                            <div class="case-status">
+                                <span class="status-badge open">Open</span>
+                            </div>
+                        </div>
+                        <div class="case-item">
+                            <div class="case-priority low"></div>
+                            <div class="case-info">
+                                <h4>Case #2024-003</h4>
+                                <p>Vandalism Report</p>
+                            </div>
+                            <div class="case-status">
+                                <span class="status-badge closed">Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-item alerts">
+                    <h3>Recent Alerts</h3>
+                    <div class="alert-list">
+                        <div class="alert-item urgent">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div class="alert-content">
+                                <p>New high-priority case assigned</p>
+                                <span>2 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="alert-item">
+                            <i class="fas fa-info-circle"></i>
+                            <div class="alert-content">
+                                <p>Case #2024-001 updated</p>
+                                <span>15 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="alert-item">
+                            <i class="fas fa-bell"></i>
+                            <div class="alert-content">
+                                <p>Daily report generated</p>
+                                <span>1 hour ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="script.js"></script>
+    <script>
+        // Case Statistics Chart
+        const casesCtx = document.getElementById('casesChart').getContext('2d');
+        new Chart(casesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Violent Crimes', 'Property Crimes', 'Cybercrime', 'Traffic Violations', 'Other'],
+                datasets: [{
+                    data: [15, 30, 20, 25, 10],
+                    backgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0',
+                        '#9966FF'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Monthly Progress Chart
+        const progressCtx = document.getElementById('progressChart').getContext('2d');
+        new Chart(progressCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Cases Solved',
+                    data: [25, 32, 28, 35, 40, 38],
+                    borderColor: '#4ecdc4',
+                    tension: 0.4,
+                    fill: false
+                }, {
+                    label: 'New Cases',
+                    data: [30, 35, 25, 32, 38, 35],
+                    borderColor: '#ff6b6b',
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

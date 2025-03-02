@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Case Management - Communication</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="communication.css">
+</head>
+<body class="light-mode">
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Police Dashboard</h2>
+            </div>
+            <nav>
+                <ul>
+                    <!-- Navigation items will be dynamically populated by script.js -->
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-details">
+                        <p class="user-name" id="navUserName">Loading...</p>
+                        <p class="user-role" id="navUserRank">Loading...</p>
+                    </div>
+                    <button class="logout-btn" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search messages...">
+                </div>
+                <div class="header-actions">
+                    <button id="toggle-theme"><i class="fas fa-moon"></i></button>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="chat-container">
+                <div class="chat-sidebar">
+                    <div class="chat-tabs">
+                        <button class="tab-btn active">All</button>
+                        <button class="tab-btn">Teams</button>
+                        <button class="tab-btn">Direct</button>
+                    </div>
+                    <div class="chat-list">
+                        <!-- Chat items will be dynamically populated by communication.js -->
+                    </div>
+                </div>
+
+                <div class="chat-main">
+                    <div class="chat-header">
+                        <div class="chat-info">
+                            <h3>Team Alpha</h3>
+                            <span>12 members</span>
+                        </div>
+                        <div class="chat-actions">
+                            <button><i class="fas fa-phone"></i></button>
+                            <button><i class="fas fa-video"></i></button>
+                            <button><i class="fas fa-info-circle"></i></button>
+                        </div>
+                    </div>
+                    <div class="messages-container">
+                        <!-- Messages will be dynamically populated by communication.js -->
+                    </div>
+                    <div class="chat-input">
+                        <button class="attachment-btn">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
+                        <input type="text" placeholder="Type your message...">
+                        <button class="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js" type="module"></script>
+    <script src="communication.js"></script>
+</body>
+</html> 

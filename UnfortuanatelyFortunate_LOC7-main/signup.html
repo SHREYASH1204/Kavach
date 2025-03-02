@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Police Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-image"></div>
+        <div class="auth-content">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Police Registration</h2>
+                </div>
+                <div class="login-type-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="loginTypeToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <div class="toggle-labels">
+                        <span class="city-level active">City Level</span>
+                        <span class="station-level">Station Level</span>
+                    </div>
+                </div>
+
+                <!-- City Level Form -->
+                <form id="signupForm" class="compact-form">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="fullName" placeholder="Full Name" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="Official Email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="phone" placeholder="Phone Number" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-id-badge"></i>
+                            <input type="text" id="badgeNumber" placeholder="Badge Number" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <i class="fas fa-building"></i>
+                            <select id="policeStation" required>
+                                <option value="">Select Zone</option>
+                                <option value="zone1">Zone 1</option>
+                                <option value="zone2">Zone 2</option>
+                                <option value="zone3">Zone 3</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-user-shield"></i>
+                            <select id="rank" required>
+                                <option value="">Select Rank</option>
+                                <option value="CP">Commissioner (CP)</option>
+                                <option value="JCP">Joint Commissioner (JCP)</option>
+                                <option value="DCP">Deputy Commissioner (DCP)</option>
+                                <option value="ACP">Assistant Commissioner (ACP)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="Password" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-key"></i>
+                        <input type="text" id="officerCode" placeholder="City Level Officer Code" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Register as City Level Officer</button>
+                </form>
+
+                <!-- Station Level Form -->
+                <form id="stationLevelForm" class="compact-form" style="display: none;">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="Full Name" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="Official Email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" placeholder="Phone Number" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-id-badge"></i>
+                            <input type="text" placeholder="Badge Number" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <i class="fas fa-building"></i>
+                            <select required>
+                                <option value="">Select Police Station</option>
+                                <option value="station1">Central Police Station</option>
+                                <option value="station2">North Police Station</option>
+                                <option value="station3">South Police Station</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-user-shield"></i>
+                            <select required id="stationRank">
+                                <option value="">Select Rank</option>
+                                <option value="sho">Station House Officer (SHO)</option>
+                                <option value="si">Sub-Inspector (SI)</option>
+                                <option value="asi">Assistant Sub-Inspector (ASI)</option>
+                                <option value="io">Investigation Officer (IO)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Password" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Confirm Password" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-key"></i>
+                        <input type="text" placeholder="Station Level Officer Code" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Register as Station Level Officer</button>
+                </form>
+
+                <div class="verification-notice">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Registration requires verification by higher authorities</p>
+                </div>
+                <p class="auth-switch">Already have an account? <a href="login.html">Login</a></p>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="signup.js"></script>
+</body>
+</html>

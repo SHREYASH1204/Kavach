@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Grievance Monitoring - Police Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="grievance.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark-mode">
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-shield-alt fa-2x"></i>
+                <h2>Police Dashboard</h2>
+            </div>
+            <nav>
+                <ul id="main-nav">
+                    <!-- Navigation will be dynamically populated based on SHO role -->
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <i class="fas fa-user-circle fa-2x"></i>
+                    <div>
+                        <p class="user-name" id="navUserName">Loading...</p>
+                        <p class="user-role" id="navUserRank">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search grievances...">
+                </div>
+                <div class="header-actions">
+                    <button class="new-grievance-btn">
+                        <i class="fas fa-plus"></i> New Grievance
+                    </button>
+                    <button id="toggle-theme"><i class="fas fa-moon"></i></button>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="grievance-stats">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #ff6b6b;">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Pending</h3>
+                        <p>28</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #4ecdc4;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Resolved</h3>
+                        <p>145</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #ffd93d;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>In Progress</h3>
+                        <p>37</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #6c5ce7;">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>This Month</h3>
+                        <p>89</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grievance-container">
+                <div class="grievance-filters">
+                    <div class="filter-group">
+                        <label>Category</label>
+                        <select>
+                            <option>All Categories</option>
+                            <option>Public Safety</option>
+                            <option>Traffic</option>
+                            <option>Noise Complaint</option>
+                            <option>Harassment</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select>
+                            <option>All Status</option>
+                            <option>Pending</option>
+                            <option>In Progress</option>
+                            <option>Resolved</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Priority</label>
+                        <select>
+                            <option>All Priorities</option>
+                            <option>High</option>
+                            <option>Medium</option>
+                            <option>Low</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Time Period</label>
+                        <select>
+                            <option>Last 7 Days</option>
+                            <option>Last 30 Days</option>
+                            <option>Last 3 Months</option>
+                            <option>All Time</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grievance-grid">
+                    <div class="grievance-list">
+                        <h3>Recent Grievances</h3>
+                        <div class="grievance-items">
+                            <!-- Grievance items will be dynamically inserted here -->
+                        </div>
+                    </div>
+
+                    <div class="grievance-details">
+                        <div class="details-header">
+                            <h3>Grievance Details</h3>
+                            <div class="action-buttons">
+                                <button class="status-update-btn">
+                                    <i class="fas fa-sync-alt"></i> Update Status
+                                </button>
+                                <button class="assign-btn">
+                                    <i class="fas fa-user-plus"></i> Assign
+                                </button>
+                            </div>
+                        </div>
+                        <div class="details-content">
+                            <!-- Details content will be added here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="grievance.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

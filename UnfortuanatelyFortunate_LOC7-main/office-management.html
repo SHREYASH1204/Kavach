@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Management - Police Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f2f5;
+        }
+        .header {
+            background-color: #1a237e;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .timetable th, .timetable td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+        .timetable th {
+            background-color: #304ffe;
+            color: white;
+        }
+        .timetable tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .shift-cell {
+            position: relative;
+            min-height: 100px;
+        }
+        .officer-duty {
+            margin: 5px 0;
+            padding: 5px;
+            background-color: #e3f2fd;
+            border-radius: 4px;
+        }
+        .night-duty {
+            background-color: #c5cae9;
+        }
+        select {
+            width: 150px;
+            padding: 5px;
+            margin: 5px;
+        }
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+        }
+        .assign-button {
+            background-color: #4caf50;
+        }
+        .auto-button {
+            background-color: #2196f3;
+        }
+        .clear-button {
+            background-color: #f44336;
+        }
+        .night-shift {
+            background-color: #e8eaf6;
+        }
+        .delete-duty {
+            color: red;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .stats {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+        }
+
+.timetable th {
+    background-color: #1a237e; /* Darker blue for headers */
+    color: white;
+}
+
+.officer-duty {
+    margin: 5px 0;
+    padding: 8px;
+    background-color: #3f51b5; /* Darker blue for duty assignments */
+    color: white; /* White text for better contrast */
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.night-duty {
+    background-color: #283593; /* Even darker blue for night duties */
+    color: white;
+}
+
+.delete-duty {
+    color: #ff9e80; /* Light coral color for delete button */
+    cursor: pointer;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.delete-duty:hover {
+    color: #ff6e40; /* Darker coral on hover */
+}
+
+.shift-cell {
+    position: relative;
+    min-height: 100px;
+    background-color: #f5f5f5; /* Light grey background for empty cells */
+}
+
+.selected-cell {
+    border: 2px solid #1a237e !important; /* Darker blue border for selected cell */
+}
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: var(--card-background-dark);
+            border-radius: 8px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .selected-cell {
+            border: 2px solid #2196f3 !important;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Police Dashboard</h2>
+            </div>
+            <nav>
+                <ul id="main-nav">
+                    <!-- Navigation items will be dynamically inserted here by script.js -->
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/40" alt="User" class="user-avatar">
+                    <div>
+                        <p class="user-name" id="navUserName">Loading...</p>
+                        <p class="user-role" id="navUserRank">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search duties...">
+                </div>
+                <div class="header-actions">
+                    <button id="toggle-theme"><i class="fas fa-moon"></i></button>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="controls">
+                <select id="officerSelect">
+                    <option value="">Select Officer</option>
+                </select>
+
+                <select id="dutySelect">
+                    <option value="">Select Duty</option>
+                    <option value="Patrol">Patrol</option>
+                    <option value="Investigation">Investigation</option>
+                    <option value="Traffic">Traffic Control</option>
+                    <option value="Desk">Desk Duty</option>
+                    <option value="Evidence">Evidence Room</option>
+                </select>
+
+                <button class="button assign-button" onclick="assignDuty()">Assign Duty</button>
+                <button class="button auto-button" onclick="autoCreateTimetable()">Create Timetable</button>
+                <button class="button clear-button" onclick="clearTimetable()">Clear All</button>
+            </div>
+
+            <div class="stats" id="scheduleStats">
+                <!-- Schedule statistics will be displayed here -->
+            </div>
+
+            <table class="timetable">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                        <th>Sunday</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Morning Shift<br>(6:00 - 14:00)</th>
+                        <td id="mon-morning" class="shift-cell"></td>
+                        <td id="tue-morning" class="shift-cell"></td>
+                        <td id="wed-morning" class="shift-cell"></td>
+                        <td id="thu-morning" class="shift-cell"></td>
+                        <td id="fri-morning" class="shift-cell"></td>
+                        <td id="sat-morning" class="shift-cell"></td>
+                        <td id="sun-morning" class="shift-cell"></td>
+                    </tr>
+                    <tr class="night-shift">
+                        <th>Evening Shift<br>(14:00 - 22:00)</th>
+                        <td id="mon-evening" class="shift-cell"></td>
+                        <td id="tue-evening" class="shift-cell"></td>
+                        <td id="wed-evening" class="shift-cell"></td>
+                        <td id="thu-evening" class="shift-cell"></td>
+                        <td id="fri-evening" class="shift-cell"></td>
+                        <td id="sat-evening" class="shift-cell"></td>
+                        <td id="sun-evening" class="shift-cell"></td>
+                    </tr>
+                    <tr class="night-shift">
+                        <th>Night Shift<br>(22:00 - 6:00)</th>
+                        <td id="mon-night" class="shift-cell"></td>
+                        <td id="tue-night" class="shift-cell"></td>
+                        <td id="wed-night" class="shift-cell"></td>
+                        <td id="thu-night" class="shift-cell"></td>
+                        <td id="fri-night" class="shift-cell"></td>
+                        <td id="sat-night" class="shift-cell"></td>
+                        <td id="sun-night" class="shift-cell"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <!-- Move Firebase initialization to script.js -->
+    <script type="module" src="script.js"></script>
+    <script type="module" src="office-management.js"></script>
+</body>
+</html>
