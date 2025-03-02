@@ -61,13 +61,16 @@ Python & Flask – Server-side logic and API handling.
 Firebase – Secure database management for case files and evidence.
 Groq-Powered Chatbot – AI-based assistant for police communication.
 
-Frontend
+Frontend: 
+
 HTML, CSS, JavaScript – Interactive web interface.
 Flutter (for Mobile App) – Cross-platform citizen and officer app.
 
-AI/ML Models
+AI/ML Models:
+
 Face Recognition – AI-driven identity verification.
 Violence Detection – CCTV video analysis for real-time threat detection.
 
-Database
+Database:
+
 Firebase – Stores user data, reports, and case records securely.
