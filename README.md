@@ -74,3 +74,7 @@ Violence Detection – CCTV video analysis for real-time threat detection.
 Database:
 
 Firebase – Stores user data, reports, and case records securely.
+
+
+The below is the deployed link of the Project :
+https://staging.d16eytoi5kjl0e.amplifyapp.com/
